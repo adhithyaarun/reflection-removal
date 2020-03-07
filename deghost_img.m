@@ -18,6 +18,9 @@ fprintf('Estimating Ghosting kernel...\n');
 % Estimate Ghosting kernel from input image
 [configs.dx configs.dy configs.c] = kernel_est(I_in);
 fprintf('Done.\n');
+fprintf('dx: %d\n',configs.dx)
+fprintf('dy: %d\n',configs.dy)
+fprintf('c: %d\n',configs.c)
 
 % Padding size : needs to be larger than the spatial shift.
 configs.padding = ceil(norm([configs.dx configs.dy]))+10;
