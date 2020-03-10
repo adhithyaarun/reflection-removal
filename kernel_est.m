@@ -9,16 +9,14 @@ function [dx dy c] =  kernel_est(I_in)
   I_in = rgb2gray(I_in);
 
   OFFSET = 50;
-      laplacian_filter = [0 -1 0; -1  4 -1; 0 -1 0];
+  laplacian_filter = [0 -1 0; -1  4 -1; 0 -1 0];
 
   % Applying laplacian on the image
   lp_output = imfilter(I_in, laplacian_filter);
   % Generaing autocorrelation map
   auto_corr = xcorr2(lp_output);
-  fprintf('%d\n',size(auto_corr));  
   [corr_x , corr_y] = size(auto_corr);
   auto_corr = auto_corr(floor((corr_x+1)/2)-OFFSET:floor((corr_x+1)/2)+OFFSET, floor((corr_y+1)/2)-OFFSET:floor((corr_y+1)/2)+OFFSET);
-  fprintf('%d\n',size(auto_corr));
   % Extracting the first and second local maxima in each 5x5 neighborhood
   f1 = @(x) max(x(:));
   f_loc_max = nlfilter(auto_corr, [5 5], f1);
@@ -45,8 +43,8 @@ function [dx dy c] =  kernel_est(I_in)
   [dk_y, dk_x] = ind2sub(size(f_loc_max), dk);
 
   % Centering the result wrt to origin
-  dy = floor((size_x)/2 + 1 - dk_y)
-  dx = floor((size_y)/2 + 1 - dk_x)
+  dy = floor((size_x)/2 + 1 - dk_y);
+  dx = floor((size_y)/2 + 1 - dk_x);
 
   c = atten_est(I_in, dx, dy);
 end

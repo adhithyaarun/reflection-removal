@@ -1,7 +1,6 @@
-function simple(rows,cols)
-% Generates a 64-by-64 synthetic result that contains a  
+function simple(rows,cols,dx,dy,c)
+% Generates a rows-by-cols synthetic result that contains a  
 % circle as transmission layer and ghosted square as reflection layer.
-% See Figure 2 in the paper.
   
   dims=[rows cols];
 
@@ -11,17 +10,18 @@ function simple(rows,cols)
 
   I2(10:50, 5:25)=0.3;
 
-  dx=4; dy=8; c=0.5;
+  % dx=2; dy=6; c=0.5;
+
+  fprintf('Creating Image with dx= %d,dy= %d \n',dx,dy);
 
   I_in = I1 + imfiltern(I2, two_pulses(dx, dy,c));
-  I_in = I_in + randn(rows,cols)*0.001+0.01
+  I_in = I_in + randn(rows,cols)*0.001;
   
   I_mat = zeros(rows,cols,3);
   I_mat(:,:,1)=I_in;
   I_mat(:,:,2)=I_in;
   I_mat(:,:,3)=I_in;
 
-  fprintf('%d\n',size(I_mat));
   I_in = I_mat;
 
   imwrite(I_in, 'simple_input.png');
