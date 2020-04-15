@@ -1,4 +1,4 @@
-function c = est_attenuation(I, dx, dy)
+function c = atten_est(I, dx, dy)
   % Function estimates attenuation factor c_k using
   % Harris corner detector
 
