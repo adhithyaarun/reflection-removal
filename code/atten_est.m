@@ -26,20 +26,20 @@ function c = atten_est(I, dx, dy)
       patch_2 = patch_2(:);
       
       % Contrast normalization of the patch
-      patch_1 = contrast_normalize(patch_1);
-      patch_2 = contrast_normalize(patch_2);
+      %patch_1 = contrast_normalize(patch_1);
+      %patch_2 = contrast_normalize(patch_2);
 
-      attn(i) = sqrt(var(patch_2)/var(patch_1));
+      %attn(i) = sqrt(var(patch_2)/var(patch_1));
 
       % Normalizing patch wrt to mean
 
-      % patch_1 = patch_1 - mean(patch_1);
-      % patch_2 = patch_2 - mean(patch_2);    
-      % attn(i) = (max(patch_2) - min(patch_2)) / (max(patch_1) - min(patch_1));
+        patch_1 = patch_1 - mean(patch_1);
+        patch_2 = patch_2 - mean(patch_2);    
+        attn(i) = (max(patch_2) - min(patch_2)) / (max(patch_1) - min(patch_1));
 
       if (attn(i) > 0) && (attn(i) < 1)
-        % score = sum(patch_1.*patch_2) / sqrt(sum(patch_1.^2)) * sqrt(sum(patch_2.^2)) ;
-        score = (norm(patch_1-patch_2))^2;
+        score = sum(patch_1.*patch_2) / sqrt(sum(patch_1.^2)) * sqrt(sum(patch_2.^2)) ;
+        %score = (norm(patch_1-patch_2))^2;
         weight(i) = exp(-score / (2*(0.2^2)));
       end
 
@@ -60,11 +60,11 @@ function patch = get_patch(I, x, y, patch_size)
 end
 
 
-function ret_arr = contrast_normalize(arr)
-  den = max(arr)-min(arr);
-  ratio = 1;
-  if den ~= 0
-    ratio = 1.0/(max(arr)-min(arr));
-  end  
-  ret_arr = (arr-min(arr))*ratio;
-end  
+%function ret_arr = contrast_normalize(arr)
+ % den = max(arr)-min(arr);
+  %ratio = 1;
+  %if den ~= 0
+   % ratio = 1.0/(max(arr)-min(arr));
+  %end  
+  %ret_arr = (arr-min(arr))*ratio;
+%end  

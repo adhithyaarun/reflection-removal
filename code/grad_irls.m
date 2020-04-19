@@ -14,7 +14,7 @@ function [I_t I_r configs]=grad_irls(I_in, configs)
   configs.use_cross=0;
 
   % Hyperparameter
-  configs.niter=1;
+  configs.niter=20;
 
   mk = get_k(configs.h, configs.w, dx, dy, c);
   mh = inv(mk);

@@ -16,7 +16,8 @@ function [I_t I_r ] = patch_gmm(I_in, configs)
   configs.beta_i = 200;
   configs.dims = [h w];
 
-  niter = 1;
+  %25 iterations as recommended by paper
+  niter = 25;
   beta  = configs.beta_i;
 
   % Identity matrix
